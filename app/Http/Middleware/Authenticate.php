@@ -14,6 +14,8 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
+        // o uso de espaçamento para a negação da variavel $request->expectsJson() foge do pradrão
+        // creio também que a API não deve redirecionar, deve retornar 401
         if (! $request->expectsJson()) {
             return route('login');
         }

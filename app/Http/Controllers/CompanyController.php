@@ -43,12 +43,15 @@ class CompanyController extends Controller
      */
     public function update(UpdateRequest $request): JsonResponse
     {
+        //variavel deveria estar em ingles, seguindo padrão do projeto
         $dominio = (new UpdateDomain(
             Auth::user()->company_id,
             $request->name,
         ))->handle();
         (new CompanyUpdate($dominio))->handle();
 
+        //o find já retorna apenas um registro, uso desnecessário do first
+        //variavel deveria estar em ingles, seguindo padrão do projeto
         $resposta = Company::find(Auth::user()->company_id)->first()->toArray();
 
         return $this->response(

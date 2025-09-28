@@ -38,6 +38,7 @@ class Gateway
         array $params = [],
         bool $logActive = true
     ): Response {
+        //seria interessante removermos dados sensiveis do log
         $this->createLog(
             description: 'Request para a BaaS',
             action:      "GATEWAY_BANKING_REQUEST_CALL_{$action}_INFO",

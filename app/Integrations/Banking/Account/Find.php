@@ -61,6 +61,8 @@ class Find extends Gateway
      *
      * @return array
      */
+
+     //este métodod não realiza alteração do status de uma conta, apenas busca seus dados e formata o retorno
     public function handle(): array
     {
         $this->findAccountData();

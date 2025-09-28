@@ -48,16 +48,16 @@ trait Logger
     public function createLog(
         string $description,
         string $action,
-        $value,
-        Throwable $error = null,
-        string $idUser = null,
-        string $idCompany = null,
-        string $entityId = null,
-        string $entity = null,
+        $value, //ausencia de tipagem
+        Throwable $error = null,// uso de nullable é depreciado, seria interessante usarmos ? ou | null ex. ?Throwable $error = null ou Throwable|null $error = null
+        string $idUser = null,// uso de nullable é depreciado, seria interessante usarmos ? ou | null ex. ?string $idUser = null ou string|null $idUser = null
+        string $idCompany = null,// uso de nullable é depreciado, seria interessante usarmos ? ou | null ex. ?string $idCompany = null ou string|null $idCompany = null
+        string $entityId = null,// uso de nullable é depreciado, seria interessante usarmos ? ou | null ex. ?string $entityId = null ou string|null $entityId = null
+        string $entity = null,// uso de nullable é depreciado, seria interessante usarmos ? ou | null ex. ?string $entity = null ou string|null $entity = null
         string $logLevel = 'DEBUG',
         string $logType = 'SERVER',
-        Carbon $requestDatetime = null,
-        Carbon $responseDatetime = null
+        Carbon $requestDatetime = null,// uso de nullable é depreciado, seria interessante usarmos ? ou | null ex. ?Carbon $requestDatetime = null ou Carbon|null $requestDatetime = null
+        Carbon $responseDatetime = null// uso de nullable é depreciado, seria interessante usarmos ? ou | null ex. ?Carbon $responseDatetime = null ou Carbon|null $responseDatetime = null
     ): array {
         try {
             $value    = is_array($value) ? $value : [$value];
@@ -69,6 +69,7 @@ trait Logger
                 $value    = array_merge($value, compact('errorLog'));
             }
 
+            //método inexistente, é necessário realizar sua implementação
             $getUserResponse = $this->getUserFromJwt();
             $requestDuration = null;
 
@@ -77,6 +78,13 @@ trait Logger
                     / Carbon::MICROSECONDS_PER_MILLISECOND;
             }
 
+
+            // Em vez de construir tudo em um array gigante, podemos separar em métodos menores:
+            // - buildUserContext() - dados do usuário
+            // - buildRequestContext() - dados da request  
+            // - buildTimingContext() - dados de timestamp
+            // - buildLogContext() - dados do log
+            // podemos também armazenar request() ->url() em uma variavel evitando que seja chamado 3 vezes
             $context = [
                 'description'                   => $description,
                 'action'                        => $action,
@@ -134,8 +142,8 @@ trait Logger
     public function defaultErrorHandling(
         Throwable $exception,
         $data = null,
-        string $idEntity = null,
-        string $entity = null,
+        string $idEntity = null, // uso de nullable é depreciado, seria interessante usarmos ? ou | null ex. ?string $idEntity = null ou string|null $idEntity = null
+        string $entity = null, // uso de nullable é depreciado, seria interessante usarmos ? ou | null ex. ?string $entity = null ou string|null $entity = null
         string $level = 'ERROR'
     ): void {
         // Caso seja um erro esperado BaseException, continua sem criar log
@@ -163,6 +171,7 @@ trait Logger
             $level
         );
 
+        //pode expor dados sensíveis, seria interessante filtrar e avaliar a necessidade do log
         dump($exception);
 
         // Para evitar propagação de log duplicado, o erro é propagado como

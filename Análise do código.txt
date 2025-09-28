@@ -1,0 +1,24 @@
+Análise do código
+
+1. app\UseCases\User\show.php não está com nomenclatura correta seguindo os outros arquivos da pasta
+2. Evitar comentários no código, ao invés disso, documentar as funções e classes
+3. Documentar as funções e classes. swagger/openapi ou termos as collections/enviroments no projeto
+4. Revisar readme
+5. Revisar .env.example
+6. Melhoria da Injeção de Dependência nos UseCases
+   - Instanciação direta das dependências pode dificultar testes e deixar classes muito acopladas
+   
+   atual:
+   $response = (new Find($this->userId, $this->companyId))->handle();
+   
+   Exemplo sugestao:
+   public function __construct(
+       private readonly UserRepositoryInterface $userRepository,
+       private readonly string $userId,
+       private readonly string $companyId
+   ) {}
+   
+   protected function find(): void {
+       $this->user = $this->userRepository->findByCompany($this->userId, $this->companyId);
+   }
+7. Não visualizei nenhum uso de filas para processamento assincrono de dados, poderiamos talvez implementa-las no logger uma vez que este processo nao deve travar o uso do sistema

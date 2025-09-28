@@ -16,4 +16,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+#arquivo desnecessário em gitignore
 o-que-eu-fiz-de-errado.txt

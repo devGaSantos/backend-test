@@ -88,6 +88,7 @@ class Create extends BaseDomain
      */
     protected function checkEmail(): void
     {
+        //seria interessante criarmos exceptions mais específicas para cada caso
         if (!(new CanUseEmail($this->email))->handle()) {
             throw new InternalErrorException(
                 'Não é possível adicionar o E-mail informado',

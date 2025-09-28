@@ -13,21 +13,21 @@ class show extends BaseUseCase
      *
      * @var string
      */
-    protected string $a;
+    protected string $a; // deveria ser $userId facilitar semântica e legibilidade do codigo
 
     /**
      * Id da empresa
      *
      * @var string
      */
-    protected string $b;
+    protected string $b; // deveria ser $companyId facilitar semântica e legibilidade do codigo
 
     /**
      * Usuário
      *
      * @var array|null
      */
-    protected ?array $c;
+    protected ?array $c; //deveria ser $user facilitar semântica e legibilidade do codigo
 
     public function __construct(string $a, string $b)
     {

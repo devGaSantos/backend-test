@@ -4,6 +4,7 @@ namespace App\Repositories\Token;
 
 use App\Models\User;
 
+//este repository nao extend ao baseRespository fugindo do padrão do projeto
 class Create
 {
     /**
